@@ -32,19 +32,12 @@ public class SimpleController {
 
     @PostMapping(value = "/person")
     public List<Person> setPerson(@RequestBody Person person){
-        carRepository.save(person.getCar().get(0));
         personRepository.save(person);
 
-//        Person person1 = new Person("Name1", 44);
-//        Person p = personRepository.save(person1);
-//        Car car = new Car();
-//        car.setBrand("Bmw");
-//        car.setType("auto");
-//        carRepository.save(car);
-
-//        person1.setCar(Arrays.asList(car));
-//        personRepository.save(person1);
-
+        for (Car car: person.getCar()) {
+            car.setPerson(person);
+            carRepository.save(car);
+        }
         return personRepository.findAll();
     }
 }

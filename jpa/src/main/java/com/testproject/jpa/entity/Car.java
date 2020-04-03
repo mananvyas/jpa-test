@@ -1,12 +1,14 @@
 package com.testproject.jpa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 public class Car {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String brand;
@@ -14,6 +16,7 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "id")
+    @JsonIgnore
     private Person person;
 
     public Car() {
